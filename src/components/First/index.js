@@ -3,7 +3,7 @@ import "./index.scss";
 import myVideo from "../../assets/video/intro.mp4";
 import ScrollList from "../ScrollList";
 
-function First() {
+function First(props) {
   return (
     <div className="first-content">
       <div className="video-wrapper">
@@ -14,6 +14,7 @@ function First() {
       </div>
       <div className="scroll-wrapper">
         <ScrollList
+          {...props}
           items={[
             "When you want something,",
             "all the universe conspires",
