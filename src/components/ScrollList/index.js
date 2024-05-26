@@ -49,7 +49,7 @@ const ScrollListItem = ({ children, index, scrollY, containerRef, last }) => {
       className="scroll-motion"
       ref={itemRef}
       animate={controls}
-      initial={{ opacity: 0.5, color: "#aaa", opacity: 0 }}
+      initial={{ opacity: 0.5, color: "#aaa" }}
     >
       {children}
     </motion.div>
@@ -96,7 +96,7 @@ const ScrollList = ({ items, handleSetScrollSecond }) => {
     return () => {
       container.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [handleScroll]);
 
   return (
     <div

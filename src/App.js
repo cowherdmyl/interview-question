@@ -131,6 +131,7 @@ function App() {
         <img
           className="icon-left"
           src="http://www.feedmusic.com/images/logo-white.svg"
+          alt="img"
         />
         <Col xs={0} sm={0} md={24} lg={22} xl={22}>
           {isVisible || (
