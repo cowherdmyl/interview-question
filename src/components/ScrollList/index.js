@@ -56,12 +56,37 @@ const ScrollListItem = ({ children, index, scrollY, containerRef, last }) => {
   );
 };
 
-const ScrollList = ({ items }) => {
+const ScrollList = ({ items, handleSetScrollSecond }) => {
   const containerRef = useRef();
   const [scrollY, setScrollY] = useState(0);
 
   const handleScroll = () => {
     setScrollY(containerRef.current.scrollTop);
+
+    const container = containerRef.current;
+
+    console.log("scrollHeight:", container.scrollHeight);
+    console.log("scrollTop:", container.scrollTop);
+    console.log("clientHeight:", container.clientHeight);
+    // 检查是否滚动到底部
+    const isBottom =
+      container.scrollHeight - container.scrollTop - container.clientHeight <=
+      1;
+    if (isBottom) {
+      console.log("滚动到底部了");
+      handleSetScrollSecond(2070);
+      // 触发动画
+      // controls.start({
+      //   scale: 1.5,
+      //   transition: { duration: 0.5 },
+      // });
+    } else {
+      // 重置动画
+      // controls.start({
+      //   scale: 1,
+      //   transition: { duration: 0.5 },
+      // });
+    }
   };
 
   useEffect(() => {
