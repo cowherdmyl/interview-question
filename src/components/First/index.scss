@@ -4,6 +4,7 @@
     height: 100%;
     padding: 15px;
     box-sizing: border-box;
+    position: relative;
 }
 
 .video-wrapper {
@@ -15,10 +16,21 @@
 }
 
 #background-video {
-    width: 150%;
-    height: 100%;
+    width: 2300px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.scroll-wrapper {
+    position: absolute;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    height: 50vh;
+    overflow-y: scroll;
+    transform: translate(-50%, -50%);
+    text-align: center;
 }
