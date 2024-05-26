@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 import { motion, useAnimation } from "framer-motion";
 import "./index.scss";
 
@@ -60,7 +60,7 @@ const ScrollList = ({ items, handleSetScrollSecond }) => {
   const containerRef = useRef();
   const [scrollY, setScrollY] = useState(0);
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     setScrollY(containerRef.current.scrollTop);
 
     const container = containerRef.current;
@@ -87,7 +87,7 @@ const ScrollList = ({ items, handleSetScrollSecond }) => {
       //   transition: { duration: 0.5 },
       // });
     }
-  };
+  }, [handleSetScrollSecond]);
 
   useEffect(() => {
     const container = containerRef.current;
