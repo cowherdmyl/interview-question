@@ -56,7 +56,7 @@ const ScrollListItem = ({ children, index, scrollY, containerRef, last }) => {
   );
 };
 
-const ScrollList = ({ items, handleSetScrollSecond }) => {
+const ScrollList = ({ items, handleSetScrollSecond, setPercent }) => {
   const containerRef = useRef();
   const [scrollY, setScrollY] = useState(0);
 
@@ -68,6 +68,8 @@ const ScrollList = ({ items, handleSetScrollSecond }) => {
     console.log("scrollHeight:", container.scrollHeight);
     console.log("scrollTop:", container.scrollTop);
     console.log("clientHeight:", container.clientHeight);
+    const percent = container.scrollTop / (container.scrollHeight -container.clientHeight) * 100
+    setPercent(Math.round(percent))
     // 检查是否滚动到底部
     const isBottom =
       container.scrollHeight - container.scrollTop - container.clientHeight <=

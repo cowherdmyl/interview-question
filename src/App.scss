@@ -32,6 +32,7 @@ body {
 .content-style {
     overflow-y: scroll;
 }
+
 .content-style::-webkit-scrollbar {
     display: none;
     /* Chrome, Safari 和 Opera */
@@ -56,6 +57,7 @@ body {
 .label-style {
     color: #fff;
     font-size: 20px;
+    position: relative;
 }
 
 // 右上角按钮
@@ -114,4 +116,15 @@ body {
     bottom: 0;
     transform: rotate(-45deg);
     transition: bottom 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+:where(.css-dev-only-do-not-override-17seli4).ant-menu-light.ant-menu-horizontal>.ant-menu-item-selected::after {
+    border-bottom-color: #fff;
+    border-bottom-width: 0
+}
+
+:where(.css-dev-only-do-not-override-17seli4).ant-menu-light.ant-menu-horizontal>.ant-menu-item:hover::after,
+:where(.css-dev-only-do-not-override-17seli4).ant-menu-light.ant-menu-horizontal>.ant-menu-item-active:hover::after {
+    border-bottom-color: #fff;
+    border-bottom-width: 0
 }
