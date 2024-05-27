@@ -1,6 +1,6 @@
 import React from "react";
 import "./index.scss";
-import myVideo from "../../assets/video/intro.mp4";
+import myVideo from "../../assets/video/use.mp4";
 import ScrollList from "../ScrollList";
 
 function First(props) {
