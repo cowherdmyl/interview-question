@@ -3,11 +3,11 @@ import TextWrapper from "./components/TextWrapper";
 import First from "./components/First";
 import Second from "./components/Second";
 import { animate } from "framer-motion";
-// import { debounce } from "lodash";
+import { debounce } from "lodash";
 import "./App.scss";
 import logoIcon from "./assets/images/logo-white.svg";
-
 import { Layout, Menu, Col } from "antd";
+
 const { Header, Content } = Layout;
 const menuItems = [
   {
@@ -30,73 +30,17 @@ const menuItems = [
   },
 ];
 
-function debounce(func, wait, immediate) {
-  let timeout;
-  return function() {
-    const context = this;
-    const args = arguments;
-
-    const later = function() {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
-    };
-
-    const callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-
-    if (callNow) func.apply(context, args);
-  };
-}
 
 function App() {
   const [isVisible, setIsVisible] = useState(false);
   const scrollRef = useRef(null);
-  // 用于存储上一次滚动位置的状态
-  const [lastScrollTop, setLastScrollTop] = useState(0);
-  // 用于存储滚动方向的状态
-  const [scrollDirection, setScrollDirection] = useState("down");
 
-  const handleScroll = debounce(
-    function (e) {
+  const handleScroll =(e) => {
       // e.target 是滚动事件的目标元素
-      // console.log(e.target.scrollTop); // 打印当前滚动位置
-      // 获取当前滚动位置
-      const currentScrollTop = e.target.scrollTop;
-      // 判断滚动方向
-      if (currentScrollTop > lastScrollTop) {
-        // 向下滚动
-        setScrollDirection("down");
-        if (currentScrollTop > 0) {
-          handleSetScrollSecond(2070);
-        }
-      } else {
-        // 向上滚动
-        setScrollDirection("up");
-        if (currentScrollTop < 2070) {
-          handleSetScrollSecond(0);
-        }
-      }
-      // 更新上一次滚动位置
-      setLastScrollTop(currentScrollTop <= 0 ? 0 : currentScrollTop);
+      console.log(e.target.scrollTop); // 打印当前滚动位置
+    }
 
-      console.log(scrollDirection);
-      // if (scrollDirection === "down") {
-      //   if (currentScrollTop > 0) {
-      //     handleSetScrollSecond(2070);
-      //   }
-      // }
-      // if (scrollDirection === "up") {
-      //   if (currentScrollTop < 2070) {
-      //     handleSetScrollSecond(0);
-      //   }
-      // }
-    },
-    10000,
-   true
-  );
-
-  const handleSetScrollSecond = (num) => {
+  const handleSetScrollSecond = debounce((num) => {
     const container = scrollRef.current;
     if (!container) return;
     // scrollRef.current.scrollTop = num; // 滚动到顶部
@@ -107,7 +51,7 @@ function App() {
         container.scrollTop = value;
       },
     });
-  };
+  },200);
   const handleToggle = () => {
     setIsVisible(!isVisible);
   };
