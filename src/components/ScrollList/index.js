@@ -1,73 +1,24 @@
-import React, { useRef, useEffect, useState } from "react";
-import { motion, useAnimation } from "framer-motion";
+import React, { useRef, useEffect, useCallback, useState } from "react";
+// import { motion, useAnimation } from "framer-motion";
 import "./index.scss";
 
-const ScrollListItem = ({ children, index, scrollY, containerRef, last }) => {
-  const controls = useAnimation();
-  const itemRef = useRef();
-
-  useEffect(() => {
-    const updateAnimation = () => {
-      if (!containerRef.current) return;
-
-      const containerRect = containerRef.current.getBoundingClientRect();
-      const itemRect = itemRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-
-      // 计算元素中心点相对于容器中心点的距离
-      const itemCenter = itemRect.top + itemRect.height / 2;
-      const containerCenter = containerRect.top + containerRect.height / 2;
-      const distanceToCenter = containerCenter - itemCenter;
-
-      // 根据距离中心点的距离调整颜色和透明度
-      const isHighlighted = Math.abs(distanceToCenter) < 100; // 假设中心区域高度为200px
-      const opacity = isHighlighted ? 1 : 0.5;
-
-      // 根据距离中心点的距离调整大小
-      const scale = Math.max(
-        0.5,
-        1 - Math.abs(distanceToCenter) / windowHeight
-      );
-
-      controls.start({
-        scale,
-        opacity,
-        color: isHighlighted ? "#fff" : "#aaa",
-        transition: { duration: 0.3 },
-      });
-    };
-
-    updateAnimation();
-  }, [scrollY, controls, containerRef]);
-
-  return (
-    <motion.div
-      style={{
-        marginTop: index === 0 ? "15%" : 0,
-        marginBottom: last ? "15%" : 0,
-      }}
-      className="scroll-motion"
-      ref={itemRef}
-      animate={controls}
-      initial={{ opacity: 0.5, color: "#aaa", opacity: 0 }}
-    >
-      {children}
-    </motion.div>
-  );
-};
-
-const ScrollList = ({ items, handleSetScrollSecond }) => {
+const ScrollList = ({ items, handleSetScrollSecond, setPercent }) => {
   const containerRef = useRef();
-  const [scrollY, setScrollY] = useState(0);
+  const [cout, setCout] = useState(0);
 
-  const handleScroll = () => {
-    setScrollY(containerRef.current.scrollTop);
+  const handleScroll = useCallback(() => {
+    // setScrollY(containerRef.current.scrollTop);
 
     const container = containerRef.current;
 
     console.log("scrollHeight:", container.scrollHeight);
     console.log("scrollTop:", container.scrollTop);
     console.log("clientHeight:", container.clientHeight);
+    const percent =
+      (container.scrollTop /
+        (container.scrollHeight - container.clientHeight)) *
+      100;
+    setPercent(Math.round(percent));
     // 检查是否滚动到底部
     const isBottom =
       container.scrollHeight - container.scrollTop - container.clientHeight <=
@@ -87,16 +38,37 @@ const ScrollList = ({ items, handleSetScrollSecond }) => {
       //   transition: { duration: 0.5 },
       // });
     }
-  };
+
+    const containerTop = container.scrollTop;
+    const containerHeight = container.offsetHeight;
+
+    document.querySelectorAll(".textLine").forEach(function (line) {
+      const lineTop = line.offsetTop - containerTop; // 计算行顶部相对于容器顶部的位置
+      let fontSize = 26; // 基础字体大小
+
+      if (lineTop < containerHeight / 2) {
+        // 如果行位于容器上半部，根据距离顶部的远近动态增加字体大小
+        fontSize += (containerHeight / 2 - lineTop) / 14; // 这里的25是调整因子，可以根据需要调整
+      }
+
+      // const opacity = Math.abs(containerTop - containerHeight / 2);
+
+      line.style.fontSize = `${fontSize}px`;
+      // line.style.opacity = opacity;
+    });
+  }, [handleSetScrollSecond, setPercent]);
 
   useEffect(() => {
     const container = containerRef.current;
     container.addEventListener("scroll", handleScroll);
-
+    if (cout === 0) {
+      container.scrollTop = 1;
+      setCout(cout + 1);
+    }
     return () => {
       container.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [handleScroll, cout]);
 
   return (
     <div
@@ -104,7 +76,7 @@ const ScrollList = ({ items, handleSetScrollSecond }) => {
       ref={containerRef}
       style={{ overflowY: "auto", height: "100%", position: "relative" }}
     >
-      {items.map((item, index) => (
+      {/* {items.map((item, index) => (
         <ScrollListItem
           key={index}
           last={index === items.length - 1}
@@ -114,7 +86,25 @@ const ScrollList = ({ items, handleSetScrollSecond }) => {
         >
           {item}
         </ScrollListItem>
-      ))}
+      ))} */}
+
+      {items.map((item, index) => {
+        return (
+          <div
+            style={{
+              width: "100%",
+              height: 200,
+              textAlign: "center",
+              color: "#fff",
+              fontWeight: "bold",
+            }}
+            key={index}
+            className="textLine"
+          >
+            {item}
+          </div>
+        );
+      })}
     </div>
   );
 };

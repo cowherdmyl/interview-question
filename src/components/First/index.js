@@ -1,16 +1,18 @@
 import React from "react";
 import "./index.scss";
-import myVideo from "../../assets/video/intro.mp4";
+// import myVideo from "../../assets/video/use.mp4";
+import mygif from "../../assets/video/use.gif";
 import ScrollList from "../ScrollList";
 
 function First(props) {
   return (
     <div className="first-content">
       <div className="video-wrapper">
-        <video autoPlay muted loop id="background-video">
+      <img src={mygif} alt=""  id="background-video"/>
+        {/* <video autoPlay muted loop>
           <source src={myVideo} type="video/mp4" />
           Your browser does not support HTML5 video.
-        </video>
+        </video> */}
       </div>
       <div className="scroll-wrapper">
         <ScrollList
