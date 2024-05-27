@@ -5,6 +5,7 @@ import Second from "./components/Second";
 import { animate } from "framer-motion";
 // import { debounce } from "lodash";
 import "./App.scss";
+import logoIcon from "./assets/images/logo-white.svg";
 
 import { Layout, Menu, Col } from "antd";
 const { Header, Content } = Layout;
@@ -130,7 +131,7 @@ function App() {
       <Header className="header-style">
         <img
           className="icon-left"
-          src="http://www.feedmusic.com/images/logo-white.svg"
+          src={logoIcon}
           alt="img"
         />
         <Col xs={0} sm={0} md={24} lg={22} xl={22}>
