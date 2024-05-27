@@ -24,10 +24,12 @@ const ScrollListItem = ({ children, index, scrollY, containerRef, last }) => {
       const opacity = isHighlighted ? 1 : 0.5;
 
       // 根据距离中心点的距离调整大小
-      const scale = Math.max(
-        0.5,
-        1 - Math.abs(distanceToCenter) / windowHeight
-      );
+      // const scale = Math.max(
+      //   0.5,
+      //   1 - Math.abs(distanceToCenter) / windowHeight
+      // );
+      console.log('distanceToCenter:', distanceToCenter)
+      const scale = distanceToCenter > 0 ? 1 : 0.5
 
       controls.start({
         scale,
