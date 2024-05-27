@@ -1,11 +1,13 @@
 import React from "react";
 import "./index.scss";
 import myVideo from "../../assets/video/use.mp4";
+import mygif from "../../assets/video/use.gif";
 import ScrollList from "../ScrollList";
 
 function First(props) {
   return (
     <div className="first-content">
+      <img src={mygif} alt="" />
       <div className="video-wrapper">
         <video autoPlay muted loop id="background-video">
           <source src={myVideo} type="video/mp4" />
