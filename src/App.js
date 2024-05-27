@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import TextWrapper from "./components/TextWrapper";
 import First from "./components/First";
 import Second from "./components/Second";
@@ -47,7 +47,7 @@ function App() {
       console.log('currentScrollTop:', currentScrollTop)
       console.log('container.scrollHeight:', container.scrollHeight)
 
-    const isBottom = container.scrollHeight - container.scrollTop - container.clientHeight > 1;
+    // const isBottom = container.scrollHeight - container.scrollTop - container.clientHeight > 1;
    
       if (currentScrollTop > 40 && currentScrollTop < 100) {
         // handleSetScrollSecond(2070)

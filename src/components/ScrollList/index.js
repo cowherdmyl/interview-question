@@ -12,7 +12,7 @@ const ScrollListItem = ({ children, index, scrollY, containerRef, last }) => {
 
       const containerRect = containerRef.current.getBoundingClientRect();
       const itemRect = itemRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
+      // const windowHeight = window.innerHeight;
 
       // 计算元素中心点相对于容器中心点的距离
       const itemCenter = itemRect.top + itemRect.height / 2;
