@@ -91,7 +91,7 @@ const ScrollList = ({ items, handleSetScrollSecond, setPercent }) => {
       //   transition: { duration: 0.5 },
       // });
     }
-  }, [handleSetScrollSecond]);
+  }, [handleSetScrollSecond, setPercent]);
 
   useEffect(() => {
     const container = containerRef.current;
